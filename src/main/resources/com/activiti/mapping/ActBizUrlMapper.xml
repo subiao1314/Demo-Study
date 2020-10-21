@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.activiti.dao.ActBizUrlMapper">
+  <resultMap id="BaseResultMap" type="com.activiti.entity.ActBizUrl">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="PROC_ID" jdbcType="VARCHAR" property="procId" />
+    <result column="DEPLOY_ID" jdbcType="VARCHAR" property="deployId" />
+    <result column="TASK_ID" jdbcType="VARCHAR" property="taskId" />
+    <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+    <result column="TASK_URL" jdbcType="VARCHAR" property="taskUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, PROC_ID, DEPLOY_ID, TASK_ID, TASK_NAME, TASK_URL
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ACT_BIZ_URL
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ACT_BIZ_URL
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.activiti.entity.ActBizUrl">
+    insert into ACT_BIZ_URL (ID, PROC_ID, DEPLOY_ID, 
+      TASK_ID, TASK_NAME, TASK_URL
+      )
+    values (#{id,jdbcType=INTEGER}, #{procId,jdbcType=VARCHAR}, #{deployId,jdbcType=VARCHAR}, 
+      #{taskId,jdbcType=VARCHAR}, #{taskName,jdbcType=VARCHAR}, #{taskUrl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.activiti.entity.ActBizUrl">
+    insert into ACT_BIZ_URL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="procId != null">
+        PROC_ID,
+      </if>
+      <if test="deployId != null">
+        DEPLOY_ID,
+      </if>
+      <if test="taskId != null">
+        TASK_ID,
+      </if>
+      <if test="taskName != null">
+        TASK_NAME,
+      </if>
+      <if test="taskUrl != null">
+        TASK_URL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="procId != null">
+        #{procId,jdbcType=VARCHAR},
+      </if>
+      <if test="deployId != null">
+        #{deployId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskId != null">
+        #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskUrl != null">
+        #{taskUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.activiti.entity.ActBizUrl">
+    update ACT_BIZ_URL
+    <set>
+      <if test="procId != null">
+        PROC_ID = #{procId,jdbcType=VARCHAR},
+      </if>
+      <if test="deployId != null">
+        DEPLOY_ID = #{deployId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskId != null">
+        TASK_ID = #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null">
+        TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskUrl != null">
+        TASK_URL = #{taskUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.activiti.entity.ActBizUrl">
+    update ACT_BIZ_URL
+    set PROC_ID = #{procId,jdbcType=VARCHAR},
+      DEPLOY_ID = #{deployId,jdbcType=VARCHAR},
+      TASK_ID = #{taskId,jdbcType=VARCHAR},
+      TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      TASK_URL = #{taskUrl,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="queryUrlListBy" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ACT_BIZ_URL
+    where DEPLOY_ID = #{deployId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="queryUrlListByProcIdAndTaskId" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ACT_BIZ_URL
+    where PROC_ID = #{procId,jdbcType=VARCHAR} and TASK_ID = #{taskId,jdbcType=VARCHAR}
+  </select>
+  
+  
+</mapper>

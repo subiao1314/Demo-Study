@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.activiti.dao.ActBizTaskResultMapper">
+  <resultMap id="BaseResultMap" type="com.activiti.entity.ActBizTaskResult">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="BIZ_ID" jdbcType="BIGINT" property="bizId" />
+    <result column="PROC_ID" jdbcType="BIGINT" property="procId" />
+    <result column="TASK_ID" jdbcType="VARCHAR" property="taskId" />
+    <result column="TASK_NAME" jdbcType="VARCHAR" property="taskName" />
+    <result column="ASSIGNEE" jdbcType="VARCHAR" property="assignee" />
+    <result column="DESCRIBTION" jdbcType="VARCHAR" property="describtion" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="IS_AGREE" jdbcType="VARCHAR" property="isAgree" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, BIZ_ID, PROC_ID, TASK_ID, TASK_NAME, ASSIGNEE, DESCRIBTION, CREATE_TIME, IS_AGREE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ACT_BIZ_TASK_RESULT
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ACT_BIZ_TASK_RESULT
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.activiti.entity.ActBizTaskResult">
+    insert into ACT_BIZ_TASK_RESULT (ID, BIZ_ID, PROC_ID, 
+      TASK_ID, TASK_NAME, ASSIGNEE, 
+      DESCRIBTION, CREATE_TIME, IS_AGREE
+      )
+    values (#{id,jdbcType=BIGINT}, #{bizId,jdbcType=BIGINT}, #{procId,jdbcType=BIGINT}, 
+      #{taskId,jdbcType=VARCHAR}, #{taskName,jdbcType=VARCHAR}, #{assignee,jdbcType=VARCHAR}, 
+      #{describtion,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{isAgree,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.activiti.entity.ActBizTaskResult">
+    insert into ACT_BIZ_TASK_RESULT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="bizId != null">
+        BIZ_ID,
+      </if>
+      <if test="procId != null">
+        PROC_ID,
+      </if>
+      <if test="taskId != null">
+        TASK_ID,
+      </if>
+      <if test="taskName != null">
+        TASK_NAME,
+      </if>
+      <if test="assignee != null">
+        ASSIGNEE,
+      </if>
+      <if test="describtion != null">
+        DESCRIBTION,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="isAgree != null">
+        IS_AGREE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="bizId != null">
+        #{bizId,jdbcType=BIGINT},
+      </if>
+      <if test="procId != null">
+        #{procId,jdbcType=BIGINT},
+      </if>
+      <if test="taskId != null">
+        #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="assignee != null">
+        #{assignee,jdbcType=VARCHAR},
+      </if>
+      <if test="describtion != null">
+        #{describtion,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isAgree != null">
+        #{isAgree,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.activiti.entity.ActBizTaskResult">
+    update ACT_BIZ_TASK_RESULT
+    <set>
+      <if test="bizId != null">
+        BIZ_ID = #{bizId,jdbcType=BIGINT},
+      </if>
+      <if test="procId != null">
+        PROC_ID = #{procId,jdbcType=BIGINT},
+      </if>
+      <if test="taskId != null">
+        TASK_ID = #{taskId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null">
+        TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="assignee != null">
+        ASSIGNEE = #{assignee,jdbcType=VARCHAR},
+      </if>
+      <if test="describtion != null">
+        DESCRIBTION = #{describtion,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isAgree != null">
+        IS_AGREE = #{isAgree,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.activiti.entity.ActBizTaskResult">
+    update ACT_BIZ_TASK_RESULT
+    set BIZ_ID = #{bizId,jdbcType=BIGINT},
+      PROC_ID = #{procId,jdbcType=BIGINT},
+      TASK_ID = #{taskId,jdbcType=VARCHAR},
+      TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      ASSIGNEE = #{assignee,jdbcType=VARCHAR},
+      DESCRIBTION = #{describtion,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      IS_AGREE = #{isAgree,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  
+  
+  <select id="queryAllProcHis" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ACT_BIZ_TASK_RESULT
+    where PROC_ID = #{procInstId,jdbcType=BIGINT}
+  </select>
+  
+</mapper>

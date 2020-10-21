@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:task="http://www.springframework.org/schema/task" xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.1.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.1.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+		http://www.springframework.org/schema/task  
+		http://www.springframework.org/schema/task/spring-task-4.1.xsd">
+			
+	
+	<mvc:annotation-driven />
+	<task:annotation-driven />
+	
+	<context:component-scan base-package="com.activiti.controller" />
+	<!-- <context:component-scan base-package="com.activiti.util" /> -->
+	<!-- 扫描activiti-modeler下的两个包 -->
+	<context:component-scan base-package="org.activiti.rest.editor.model"/>
+	<context:component-scan base-package="org.activiti.rest.editor.main"/>
+	<!-- <context:component-scan base-package="org.activiti.rest.diagram"/> -->
+	<context:component-scan base-package="org.activiti.rest.diagram.services">  
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>  
+    </context:component-scan>
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- 访问静态资源 -->
+	<mvc:default-servlet-handler />
+
+	<!-- 访问静态资源 -->
+	<mvc:resources location="diagram-viewer/" mapping="diagram-viewer/**"/>
+	<mvc:resources location="editor-app/" mapping="editor-app/**"/>
+	<mvc:resources location="/" mapping="/**.html"/>
+	<mvc:resources location="/" mapping="/**.jsp"/>
+	
+	<!-- 配置拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- /** 这里表示所有的url包括子url都进行拦截，如果是 /* ，则表示项目根url才会被拦截 -->
+			<mvc:mapping path="/**" />
+			<bean class="com.activiti.interceptor.LoginInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+</beans>
